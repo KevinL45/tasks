@@ -19,14 +19,14 @@ class Task
     #[ORM\Column(length: 100)]
     private ?string $libelle = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateDebut = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateFin = null;
-
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     private ?Employee $employee = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $heureDebut = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $heureFin = null;
 
     public function getId(): ?int
     {
@@ -45,30 +45,6 @@ class Task
         return $this;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
-    {
-        return $this->dateDebut;
-    }
-
-    public function setDateDebut(\DateTimeInterface $dateDebut): static
-    {
-        $this->dateDebut = $dateDebut;
-
-        return $this;
-    }
-
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->dateFin;
-    }
-
-    public function setDateFin(\DateTimeInterface $dateFin): static
-    {
-        $this->dateFin = $dateFin;
-
-        return $this;
-    }
-
     public function getEmployee(): ?Employee
     {
         return $this->employee;
@@ -80,4 +56,29 @@ class Task
 
         return $this;
     }
+
+    public function getHeureDebut(): ?\DateTimeInterface
+    {
+        return $this->heureDebut;
+    }
+
+    public function setHeureDebut(\DateTimeInterface $heureDebut): static
+    {
+        $this->heureDebut = $heureDebut;
+
+        return $this;
+    }
+
+    public function getHeureFin(): ?\DateTimeInterface
+    {
+        return $this->heureFin;
+    }
+
+    public function setHeureFin(\DateTimeInterface $heureFin): static
+    {
+        $this->heureFin = $heureFin;
+
+        return $this;
+    }
+
 }
