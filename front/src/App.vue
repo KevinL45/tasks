@@ -1,22 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <NavbarComponent/>
+  <br>
   <HomePage/>
 </template>
 
 <script>
 import HomePage from './components/HomePage.vue';
+import NavbarComponent from './layout/NavbarComponent.vue';
 
 export default {
   name: 'App',
   components: {
-    HomePage
-  }
+    HomePage,
+    NavbarComponent
+  } 
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
