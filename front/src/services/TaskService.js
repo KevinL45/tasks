@@ -1,4 +1,3 @@
-<script>
 
 import { axios } from "axios";
 
@@ -14,21 +13,19 @@ const api = axios.create({
 export default{
 
     //Affiche toutes les tâches
-    getEmployee(){
-        return api.get('/employees')
+    getTasks(){
+        return api.get('/tasks')
     },
     //Saisir la tâche
-    postEmployee(employee){
-        return api.post('/employees', employee)
+    postTask(task){
+        return api.post('/task',task)
     },
     //Modifier la tâche
-    updateEmployee(id, employee){
-        return api.put('/employees/'+id, employee)
+    updateTask(id, task){
+        return api.put('/task/'+id, task)
     },
     //Supprimer une tache
-    deleteEmployee(id){
-        return api.delete('/employees/'+id)
+    deleteTask(id){
+        return api.delete('/tasks/'+id)
     }
 }
-
-</script>
