@@ -7,10 +7,10 @@
           <a class="nav-link" aria-current="page" href="/">Liste des tâches</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/formulaire">Formulaire</a>
+          <a class="nav-link" href="/createtask">Créer une tâche</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/affectation">Affectation</a>
+          <a class="nav-link" href="/affectation">Affecter une tâches</a>
         </li>
       </ul>
     </div>

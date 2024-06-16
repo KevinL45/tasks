@@ -4,36 +4,46 @@
       <h1>Liste des tâches</h1>
     </div>
     <br>
-  <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Tache</h5>
-    <p class="card-text">Nom de l'employée</p>
-    <p class="card-text">Heure de début et fin</p>
-    <a href="#" class="btn btn-danger">Supprimer</a>
+  <div v-for="task in tasks" :key="task.id" class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ task.libelle }}</h5>
+      <p class="card-text">Nom de l'employée</p>
+      <p class="card-text"> Date de début : {{ task.heureDebut }}</p>
+      <p class="card-text">Date de fin : {{ task.heureFin }}</p>
+      <a href="#" class="btn btn-danger" @click="deleteTask(task.id)">Supprimer</a>
+    </div>
   </div>
-</div>
 
 </template>
 
 <script>
-//import TaskService from "@/services/TaskService.vue";
 import axios from 'axios';
 export default {
   data(){
     return{
-      tasks:[
-      ]
-    }
+      tasks:[]
+    };
   },
   mounted(){
     this.getTasks();
 
   },
   methods:{
-    getTasks(){
-      axios.get('https://127.0.0.1:8000/api/tasks').then(res =>{
-        console.log(res)
-      })
+    
+   async getTasks(){
+    //Affiche la liste des tasks
+      const response = await axios.get('https://127.0.0.1:8000/api/tasks');
+      this.tasks = response.data['hydra:member']
+      //Affiche les données dans la console
+      console.warn(this.tasks)
+    },
+
+    async deleteTask(id){
+      //Supprimer une tâche
+      await axios.delete("https://127.0.0.1:8000/api/tasks/"+id);
+      console.log("La tâche est supprimée")
+       // Mise à jour des tâches
+       this.tasks = this.tasks.filter(task => task.id !== id);
     }
   }
   

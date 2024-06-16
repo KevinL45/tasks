@@ -1,7 +1,7 @@
 <template>
-      <title>Affectation</title>
+      <title>Affectation - Tâches</title>
     <div class="affectation">
-      <h1>Affectation</h1>
+      <h1>Affectation d'une tâche</h1>
     </div>
     <div class="card" style="width: 18rem;">
   <div class="card-body">
