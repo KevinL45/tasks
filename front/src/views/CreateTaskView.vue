@@ -29,23 +29,35 @@
       return {
         formData:{
           libelle:null,
-          heureDebut:"10:00",
-          heureFin:"18:00"
-        }
+          heureDebut:"09:00",
+          heureFin:"17:00"
+        },
+        jsonFormat:null
       }
       
     },
     methods:{
       async submit() {
-          //Afficher les données dans la console
-          console.log(this.formData)
+
+          //Transformer les données en JSON
+          this.jsonFormat = JSON.stringify(this.formData,null,2)
+
+          //Affichage des données en JSON
+          console.warn(this.jsonFormat)
 
           //Insertion des données dans la base de donneés passant par une API
-           let result = await axios.post('https://127.0.0.1:8000/api/tasks',this.formData)
-            .then(response => { console.log(response); })
-            .catch(error => { console.log(error); });
-            //Affichage des données en JSON
-            console.warn(result)
+          await axios.post('https://127.0.0.1:8000/api/tasks/',this.jsonFormat)
+          //Si correct, affiche la bonne réponse
+          .then(response => { console.log(response); })
+          //Si faux, la requête est refusé
+          .catch(error => { console.log(error); });
+
+          //Reintilalisation du formulaire
+          this.formData = {
+          libelle: null,
+          heureDebut: '09:00',
+          heureFin: '17:00'
+          };
       }
     }
   }

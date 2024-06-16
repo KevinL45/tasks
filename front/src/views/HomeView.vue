@@ -31,7 +31,7 @@ export default {
   methods:{
     
    async getTasks(){
-    //Affiche la liste des tasks
+    //Affiche la liste des tâches
       const response = await axios.get('https://127.0.0.1:8000/api/tasks');
       this.tasks = response.data['hydra:member']
       //Affiche les données dans la console

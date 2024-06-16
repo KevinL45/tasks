@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CreateTaskViewView from '@/views/CreateTaskView.vue'
-import AffectationView from '@/views/AffectationView.vue'
+import AffectTask from '@/views/AffectTask.vue'
 
 const routes = [
   {
@@ -15,9 +15,9 @@ const routes = [
     component: CreateTaskViewView
   },
   {
-    path:'/affectation',
-    name:'affectation',
-    component : AffectationView
+    path:'/affecttask',
+    name:'affecttask',
+    component : AffectTask
 
   }
 ]

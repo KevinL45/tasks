@@ -1,6 +1,6 @@
 <template>
       <title>Affectation - Tâches</title>
-    <div class="affectation">
+    <div class="affecttask">
       <h1>Affectation d'une tâche</h1>
     </div>
     <div class="card" style="width: 18rem;">

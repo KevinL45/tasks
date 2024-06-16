@@ -10,7 +10,7 @@
           <a class="nav-link" href="/createtask">Créer une tâche</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/affectation">Affecter une tâches</a>
+          <a class="nav-link" href="/affecttask">Affecter une tâches</a>
         </li>
       </ul>
     </div>
