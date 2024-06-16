@@ -2,17 +2,28 @@
     <title>Liste des tâches</title>
     <div class="Home">
       <h1>Liste des tâches</h1>
-    </div>
-    <br>
-  <div v-for="task in tasks" :key="task.id" class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{ task.libelle }}</h5>
-      <p class="card-text">Nom de l'employée</p>
-      <p class="card-text"> Date de début : {{ task.heureDebut }}</p>
-      <p class="card-text">Date de fin : {{ task.heureFin }}</p>
+
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Libelle</th>
+      <th scope="col">Heure de début</th>
+      <th scope="col">Heure de fin</th>
+      <th scope="col">Option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="task in tasks" :key="task.id">
+      <td>{{ task.id }}</td>
+      <td>{{ task.libelle }}</td>
+      <td>{{ task.heureDebut }}</td>
+      <td>{{ task.heureFin }}</td>
       <a href="#" class="btn btn-danger" @click="deleteTask(task.id)">Supprimer</a>
+    </tr>
+  </tbody>
+      </table>
     </div>
-  </div>
 
 </template>
 
