@@ -17,8 +17,8 @@
     <tr v-for="task in tasks" :key="task.id">
       <td>{{ task.id }}</td>
       <td>{{ task.libelle }}</td>
-      <td>{{ task.heureDebut }}</td>
-      <td>{{ task.heureFin }}</td>
+      <td>{{ time(task.heureDebut) }}</td>
+      <td>{{ time(task.heureFin) }}</td>
       <a href="#" class="btn btn-danger" @click="deleteTask(task.id)">Supprimer</a>
     </tr>
   </tbody>
@@ -28,7 +28,10 @@
 </template>
 
 <script>
+
 import axios from 'axios';
+import {formatTime} from "@/components/js/FormatTime"
+
 export default {
   data(){
     return{
@@ -55,8 +58,10 @@ export default {
       console.log("La tâche est supprimée")
        // Mise à jour des tâches
        this.tasks = this.tasks.filter(task => task.id !== id);
+    },
+    time(d){
+      return formatTime(d);
     }
   }
-  
 };
 </script>

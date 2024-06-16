@@ -18,9 +18,9 @@
     <tr v-for="task in tasks" :key="task.id">
       <td>{{ task.id }}</td>
       <td>{{ task.libelle }}</td>
-      <td>{{ task.heureDebut }}</td>
-      <td>{{ task.heureFin }}</td>
-      <td>Aucun</td>
+      <td>{{ time(task.heureDebut) }}</td>
+      <td>{{ time(task.heureFin) }}</td>
+      <td>{{ task.employee }}</td>
       <a href="#" class="btn btn-success" @click="deleteTask(task.id)">Affecter</a>
     </tr>
   </tbody>
@@ -32,10 +32,13 @@
 
 <script>
 import axios from 'axios';
+import {formatTime} from "@/components/js/FormatTime"
+
 export default {
   data(){
     return{
-      tasks:[]
+      tasks:[],
+      employee:null,
     };
   },
   mounted(){
@@ -51,6 +54,16 @@ export default {
       //Affiche les données dans la console
       console.warn(this.tasks)
     },
+
+    async getEmployee(id){
+      const response = await axios.get('https://127.0.0.1:8000/api/employees/'+id);
+      this.employee = response.data['hydra:member']
+      //Affiche les données dans la console
+      console.warn(this.employee)
+    },
+    time(d){
+      return formatTime(d);
+    }
   }
   
 };
