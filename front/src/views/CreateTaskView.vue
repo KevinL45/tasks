@@ -1,5 +1,5 @@
 <template>
-  <title>Formulaire - Tâches</title>
+  <title>Formulaire - Tâche</title>
     <div class="formulaire">
       <h1>Création d'une tâche</h1>
     </div>
@@ -22,6 +22,7 @@
 
   <script>
   import axios from 'axios';
+  //import TaskService from '@/services/TaskService';
 
   export default{
     name:"createTask",
@@ -38,17 +39,9 @@
     },
     methods:{
       async submit() {
-
-          //Transformer les données en JSON
-          this.jsonFormat = JSON.stringify(this.formData,null,2)
-
-          //Affichage des données en JSON
-          console.warn(this.jsonFormat)
-
           //Insertion des données dans la base de donneés passant par une API
-          const response = await axios.post('https://127.0.0.1:8000/api/tasks/',this.jsonFormat);
+          const response = await axios.post('https://127.0.0.1:8000/api/task/create',this.formData);
           console.warn(response)
-
           //Reintilalisation du formulaire
           this.formData = {
           libelle: null,
