@@ -19,7 +19,9 @@
       <td>{{ task.libelle }}</td>
       <td>{{ time(task.heureDebut) }}</td>
       <td>{{ time(task.heureFin) }}</td>
-      <a href="#" class="btn btn-danger" @click="deleteTask(task.id)">Supprimer</a>
+      <td>
+      <a class="btn btn-danger" @click="deleteTask(task.id)">Supprimer</a>
+    </td>
     </tr>
   </tbody>
       </table>

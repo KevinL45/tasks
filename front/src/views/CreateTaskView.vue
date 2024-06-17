@@ -4,7 +4,7 @@
       <h1>Création d'une tâche</h1>
     </div>
     <form method="post" @submit.prevent="submit">
-        <div id="formulaire" class="form-group" action="home">
+        <div class="form-group" action="home">
           <label for="libelle">Tâche</label>
           <input  name="libelle" type="text" class="form-control" v-model="formData.libelle" placeholder="Entrez le nom de la tâche"   required>
         </div>
@@ -29,8 +29,8 @@
       return {
         formData:{
           libelle:null,
-          heureDebut:"09:00",
-          heureFin:"17:00"
+          heureDebut:null,
+          heureFin:null
         },
         jsonFormat:null
       }
@@ -46,17 +46,14 @@
           console.warn(this.jsonFormat)
 
           //Insertion des données dans la base de donneés passant par une API
-          await axios.post('https://127.0.0.1:8000/api/tasks/',this.jsonFormat)
-          //Si correct, affiche la bonne réponse
-          .then(response => { console.log(response); })
-          //Si faux, la requête est refusé
-          .catch(error => { console.log(error); });
+          const response = await axios.post('https://127.0.0.1:8000/api/tasks/',this.jsonFormat);
+          console.warn(response)
 
           //Reintilalisation du formulaire
           this.formData = {
           libelle: null,
-          heureDebut: '09:00',
-          heureFin: '17:00'
+          heureDebut: null,
+          heureFin: null,
           };
       }
     }
