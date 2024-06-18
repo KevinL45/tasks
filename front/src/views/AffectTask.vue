@@ -38,8 +38,8 @@
         </div>
         <div class="form-group">
           <label for="employe">Employé</label>
-          <select class="form-select" v-model="task.employee">
-            <option v-for="e in employees" :key="e.id" :values="e.id">{{ e.name }}</option>
+          <select class="form-select" v-model="task.employee" required>
+            <option v-for="e in employees" :key="e.id" :values="e.id">{{ e.id }}</option>
           </select>
         </div>
         <div class="form-group">
@@ -99,8 +99,12 @@ export default {
     async updateTask(task){
       //Affiche les données dans la console
       console.log(task)
-      const response = await axios.put("https://127.0.0.1:8000/api/tasks/"+task.id,task);
+      const response = await axios.put("https://127.0.0.1:8000/api/task/update/"+task.id,task);
       console.warn(response)
+      //Retourne false si le bouton "Modifier" est cliqué
+      this.visibleForm = false
+      this.getTasks()
+
     },
 
     showForm(task){
@@ -110,8 +114,8 @@ export default {
 
       //Tâche choisi
       this.task = {
+        id : task.id,
         libelle : task.libelle,
-        employees : task.employee,
         heureDebut : this.time(task.heureDebut),
         heureFin : this.time(task.heureFin)
       }
