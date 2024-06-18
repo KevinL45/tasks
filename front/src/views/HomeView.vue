@@ -6,11 +6,11 @@
       <table class="table">
   <thead>
     <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Libelle</th>
-      <th scope="col">Heure de début</th>
-      <th scope="col">Heure de fin</th>
-      <th scope="col">Option</th>
+      <th scope="col"><a class="btn btn-primary" @click="sortById()">Id</a></th>
+      <th scope="col"><a class="btn btn-primary" @click="sortByLibelle()">Libelle</a></th>
+      <th scope="col"><a class="btn btn-primary" @click="sortByHeureDebut()">Heure de début</a></th>
+      <th scope="col"><a class="btn btn-primary" @click="sortByHeureFin()">Heure de fin</a></th>
+      <th scope="col">...</th>
     </tr>
   </thead>
   <tbody>
@@ -47,7 +47,7 @@ export default {
   methods:{
     
    async getTasks(){
-    //Affiche la liste des tâches
+      //Affiche la liste des tâches
       const response = await axios.get('https://127.0.0.1:8000/api/tasks');
       this.tasks = response.data['hydra:member']
       //Affiche les données dans la console
@@ -60,6 +60,58 @@ export default {
       console.log("La tâche est supprimée")
        // Mise à jour des tâches
        this.tasks = this.tasks.filter(task => task.id !== id);
+    },
+
+    async sortById(){
+      //Trier par Id
+      this.tasks.sort((a, b) => {
+      if (a.id < b.id) {
+        return -1;
+      }
+      if (a.id > b.id) {
+        return 1;
+      }
+      return 0;
+    }); 
+    },
+
+    async sortByLibelle(){
+      //Trier par Id
+      this.tasks.sort((a, b) => {
+      if (a.libelle < b.libelle) {
+        return -1;
+      }
+      if (a.libelle > b.libelle) {
+        return 1;
+      }
+      return 0;
+    }); 
+    },
+
+    async sortByHeureDebut(){
+      //Trier par Id
+      this.tasks.sort((a, b) => {
+      if (a.heureDebut < b.heureDebut) {
+        return -1;
+      }
+      if (a.heureDebut > b.heureDebut) {
+        return 1;
+      }
+      return 0;
+    }); 
+    },
+
+    async sortByHeureFin(){
+      //Trier par Id
+      this.tasks.sort((a, b) => {
+      if (a.heureFin < b.heureFin) {
+        return -1;
+      }
+      if (a.heureFin > b.heureFin) {
+        return 1;
+      }
+      return 0;
+    }); 
     },
     time(d){
       return formatTime(d);
