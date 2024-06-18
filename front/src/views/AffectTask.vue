@@ -18,7 +18,7 @@
     <tr v-for="task in tasks" :key="task.id">
       <td>{{ task.id }}</td>
       <td>{{ task.libelle }}</td>
-      <td>{{ task.employee }}</td>
+      <td>{{ getEmployeeNameUrl(task.employee) }}</td>
       <td>{{ time(task.heureDebut) }}</td>
       <td>{{ time(task.heureFin) }}</td>
       <td>
@@ -51,11 +51,8 @@
           <input v-model="task.heureFin" name="heureFin" type="time" class="form-control" placeholder="Entrez l'heure de fin"   required>
         </div>
         <button type="submit" class="btn btn-primary" @click="updateTask(task)">Affecter</button>
-  </form></div>
-   
-
- 
-  </template>
+  </form></div> 
+</template>
 
 <script>
 import axios from 'axios';
@@ -67,7 +64,7 @@ export default {
       //Initialisation des tableaux
       tasks:[],
       employees:[],
-      //boolean
+      //Retourne false si le bouton "Modifier" est cliqué
       visibleForm:false,
       //Initialisation de la variable
       task:null,
@@ -75,36 +72,67 @@ export default {
     };
   },
   mounted(){
+    //Liste des tâches
     this.getTasks();
+    //Liste des employées
     this.getEmployees();
 
   },
   methods:{
     
    async getTasks(){
-    //Affiche la liste des tâches
       const response = await axios.get('https://127.0.0.1:8000/api/tasks');
+      //La liste des tâches
       this.tasks = response.data['hydra:member']
-      //Affiche les données dans la console
-      console.warn(this.tasks)
     },
 
     async getEmployees(){
       const response = await axios.get('https://127.0.0.1:8000/api/employees');
+      //La liste des employés
       this.employees = response.data['hydra:member']
-      //Affiche les données dans la console
-      console.warn(this.employees)
     },
 
+    getEmployeeNameUrl(url_api){
+      //L'id de l'employé
+      let employee_id = this.extractId(url_api);
+      //Trouve l'id dans la liste des employés
+      const employee = this.employees.find(e => e.id === employee_id);
+      //Si l'employé existe, affiche son nom sinon "Non affecté"
+      return employee ? employee.name : 'Non affecté';
+    },
+    
+
     async updateTask(task){
-      //Affiche les données dans la console
-      console.log(task)
+      console.log("Temps de travaille : "+this.calclulHours(task))
+      //Modification des données de la tâche
       const response = await axios.put("https://127.0.0.1:8000/api/task/update/"+task.id,task);
+      //Affiche le status de la requête
       console.warn(response)
       //Retourne false si le bouton "Modifier" est cliqué
       this.visibleForm = false
+      //Liste des tâches
       this.getTasks()
+      //Affiche un message de confirmation
+      alert('La tâche a été modifié.');
 
+    },
+
+    extractId(url_api)
+    {
+      //Retourne le chiffre après le /
+      return url_api ? parseInt(url_api.split('/').pop()) : null;
+    },
+
+     calclulHours(task){
+
+      //Convertir les heures en objet date
+      let heureD = new Date(task.heureDebut);
+      let heureF = new Date(task.heureFin);
+
+      //Calcule l'heure : heureDépart - heureFin
+      let hours = heureD - heureF
+
+      return hours;
     },
 
     showForm(task){

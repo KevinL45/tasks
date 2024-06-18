@@ -48,6 +48,7 @@
           heureDebut: null,
           heureFin: null,
           };
+          alert('La tâche a été ajouté');
       }
     }
   }
