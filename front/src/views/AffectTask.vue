@@ -152,7 +152,7 @@ export default {
       const [newStart, newEnd] = [convertToMinutes(newTask.heureDebut), convertToMinutes(newTask.heureFin)];
       // Si les minutes de fin sont inférieures aux minutes de début, retourne false avec un message
       if (newEnd < newStart){
-        alert("l'heure de fin est à l'heure de début");
+        alert("l'heure de fin est infeieur à l'heure de début");
         return false;
       }
       // Calcul la durée
