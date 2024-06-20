@@ -20,9 +20,8 @@
   </form>
 </template>
 
-  <script>
-  import axios from 'axios';
-
+<script>
+import { postTask } from '@/services/TaskService';
   export default{
     name:"createTask",
     data(){
@@ -38,10 +37,10 @@
     },
     methods:{
       async submit() {
-          //Insertion des données dans la base de donneés passant par une API
-          const response = await axios.post('https://127.0.0.1:8000/api/task/create',this.formData);
+          // Insertion des données d'une tâche
+          const response = postTask(this.formData);
           console.warn(response)
-          //Reintilalisation du formulaire
+          // Reintilalisation du formulaire
           this.formData = {
           libelle: null,
           heureDebut: null,
