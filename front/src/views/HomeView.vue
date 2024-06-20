@@ -32,7 +32,7 @@
 <script>
 
 import axios from 'axios';
-import {formatTime} from "@/components/js/FormatTime"
+import {formatTime} from "@/components/js/FormatTime";
 
 export default {
   data(){

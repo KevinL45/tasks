@@ -137,9 +137,8 @@ export default {
 
         //Affiche l'id de l'employer 
         console.log( "New Task : "+newTask.employee)
-        //
-        const convertToMinutes = time => time.split(':').reduce((h, m) => h * 60 + +m);
         //Converti heureDebut et heureFin en minutes
+        const convertToMinutes = time => time.split(':').reduce((h, m) => h * 60 + +m);
         const [newStart, newEnd] = [convertToMinutes(newTask.heureDebut), convertToMinutes(newTask.heureFin)];
         //Si les minutes de fin sont inferieurs aux minutes de début, retourne false
         if (newEnd <= newStart) return false;  
