@@ -1,7 +1,7 @@
 <template>
   <div class="Home">
-    <h1>Liste des tâches</h1>
         <div class="container">
+          <h1>Liste des tâches</h1>
           <table class="table">
             <thead>
               <tr>

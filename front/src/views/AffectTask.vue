@@ -1,8 +1,7 @@
 <template>
   <div class="affecttask">
-    <h1>Affectation d'une tâche</h1>
-
     <div class="container">
+      <h1>Affectation d'une tâche</h1>
         <table class="table">
             <thead>
               <tr>
