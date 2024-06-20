@@ -1,32 +1,43 @@
 <template>
-  <title>Liste des tâches</title>
   <div class="Home">
     <h1>Liste des tâches</h1>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col"><a class="btn btn-primary" @click="sortById()">Id</a></th>
-          <th scope="col"><a class="btn btn-primary" @click="sortByLibelle()">Libelle</a></th>
-          <th scope="col"><a class="btn btn-primary" @click="sortByHeureDebut()">Heure de début</a></th>
-          <th scope="col"><a class="btn btn-primary" @click="sortByHeureFin()">Heure de fin</a></th>
-          <th scope="col">...</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="task in tasks" :key="task.id">
-          <td>{{ task.id }}</td>
-          <td>{{ task.libelle }}</td>
-          <td>{{ time(task.heureDebut) }}</td>
-          <td>{{ time(task.heureFin) }}</td>
-          <td>
-            <a class="btn btn-danger" @click="deleteOneTask(task.id)">Supprimer</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        <div class="container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="name"><a @click="sortById()" >Id</a></th>
+                <th class="name"><a @click="sortByLibelle()">Libelle</a></th>
+                <th class="name"><a @click="sortByHeureDebut()">Heure de début</a></th>
+                <th class="name"><a @click="sortByHeureFin()">Heure de fin</a></th>
+                <th class="name">...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="task in tasks" :key="task.id">
+                <td>{{ task.id }}</td>
+                <td>{{ task.libelle }}</td>
+                <td>{{ time(task.heureDebut) }}</td>
+                <td>{{ time(task.heureFin) }}</td>
+                <td>
+                  <a class="btn btn-danger" @click="deleteOneTask(task.id)">Supprimer</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
 </template>
+
+<style>
+.table {
+  border: 1px solid #ccc; 
+  background-color: #f8f9fa; 
+  padding: 15px; 
+}
+.name{
+  cursor: pointer;
+}
+</style>
 
 <script>
 import { formatTime } from "@/components/js/FormatTime";

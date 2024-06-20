@@ -1,59 +1,79 @@
 <template>
-  <title>Affectation - Tâches</title>
   <div class="affecttask">
     <h1>Affectation d'une tâche</h1>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Libelle</th>
-          <th scope="col">La tâche est affecté à</th>
-          <th scope="col">Heure de début</th>
-          <th scope="col">Heure de fin</th>
-          <th scope="col">Option</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="task in tasks" :key="task.id">
-          <td>{{ task.id }}</td>
-          <td>{{ task.libelle }}</td>
-          <td>{{ getEmployeeNameUrl(task.employee) }}</td>
-          <td>{{ time(task.heureDebut) }}</td>
-          <td>{{ time(task.heureFin) }}</td>
-          <td>
-            <button type="submit" class="btn btn-primary" @click="showForm(task)">Modifier</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="container">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>La tâche est affecté à</th>
+                <th>Heure de début</th>
+                <th>Heure de fin</th>
+                <th>...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="task in tasks" :key="task.id">
+                <td>{{ task.id }}</td>
+                <td>{{ task.libelle }}</td>
+                <td>{{ getEmployeeNameUrl(task.employee) }}</td>
+                <td>{{ time(task.heureDebut) }}</td>
+                <td>{{ time(task.heureFin) }}</td>
+                <td>
+                  <button type="submit" class="btn btn-primary" @click="showForm(task)">Modifier</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
 
   <br />
   <div v-if="visibleForm">
-    <form method="put" @submit.prevent="update(task)">
-      <div class="form-group">
-        <label for="libelle">Tâche</label>
-        <input name="libelle" type="text" class="form-control" v-model="task.libelle" placeholder="Entrez le nom de la tâche" required>
+    <div class="container-border">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="formulaire">
+            <h1>Affecter une tâche</h1>
+          </div>
+            <form method="put" @submit.prevent="update(task)">
+              <div class="form-group mb-4">
+                <label for="libelle">Tâche</label>
+                <input name="libelle" type="text" class="form-control" v-model="task.libelle" placeholder="Entrez le nom de la tâche" required>
+              </div>
+                <div class="form-group mb-4">
+                  <label for="employe">Employé</label>
+                    <select class="form-select" v-model="task.employee" required>
+                    <option v-for="e in employees" :key="e.id" :value="e.id">{{ e.name }}</option>
+                  </select>
+                </div>
+                <div class="form-group mb-4">
+                  <label for="heureDebut">Heure de début</label>
+                  <input v-model="task.heureDebut" name="heureDebut" type="time" class="form-control" placeholder="Entrez l'heure de début" required>
+                </div>
+                <div class="form-group mb-4">
+                  <label for="heureFin">Heure de fin</label>
+                  <input v-model="task.heureFin" name="heureFin" type="time" class="form-control" placeholder="Entrez l'heure de fin" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Affecter</button>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="employe">Employé</label>
-        <select class="form-select" v-model="task.employee" required>
-          <option v-for="e in employees" :key="e.id" :value="e.id">{{ e.name }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="heureDebut">Heure de début</label>
-        <input v-model="task.heureDebut" name="heureDebut" type="time" class="form-control" placeholder="Entrez l'heure de début" required>
-      </div>
-      <div class="form-group">
-        <label for="heureFin">Heure de fin</label>
-        <input v-model="task.heureFin" name="heureFin" type="time" class="form-control" placeholder="Entrez l'heure de fin" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Affecter</button>
-    </form>
+    </div>
   </div>
 </template>
+
+<style>
+.container {
+  border: 1px solid #ccc; 
+  background-color: #f8f9fa; 
+  padding: 15px; 
+}
+</style>
 
 <script>
 import { formatTime } from "@/components/js/FormatTime";
