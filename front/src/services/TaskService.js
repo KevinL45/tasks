@@ -17,6 +17,5 @@ export const updateTask = async (id, task) => {
 };
 
 export const deleteTask = async (id) => {
-    // Supprimer une tâche
     await axios.delete("https://127.0.0.1:8000/api/tasks/" + id);
 };

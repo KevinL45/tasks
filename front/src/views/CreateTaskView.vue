@@ -1,6 +1,6 @@
 <template>
   <div class="container-border">
-    <div class="container my-4">
+    <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="formulaire">

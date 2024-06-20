@@ -122,7 +122,6 @@ export default {
 
     async update(task) {
       // Si l'employé existe
-      if (this.task.employee && this.task.libelle) {
         if (this.calculHours(task)) {
           // Modification des données de la tâche
           await updateTask(task.id, task);
@@ -133,10 +132,6 @@ export default {
           // Affiche un message
           alert('La tâche a été modifiée.');
         }
-      } else {
-        // Affiche un message
-        alert('Champs incomplets');
-      }
     },
 
     extractId(url_api) {
