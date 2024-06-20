@@ -10,22 +10,22 @@ const api = axios.create({
     'Content-Type': 'application/json'
   }
 });
-export default{
+    export const getTasks = async () => {
+        const response = await api.get('/tasks');
+        return response.data["hydra:member"];
+    };
 
-    //Affiche toutes les tâches
-    getTasks(){
-        return api.get('/tasks')
-    },
-    //Saisir la tâche
-    postTask(task){
-        return api.post('/task',task)
-    },
-    //Modifier la tâche
-    updateTask(id, task){
-        return api.put('/task/'+id, task)
-    },
-    //Supprimer une tache
-    deleteTask(id){
-        return api.delete('/tasks/'+id)
-    }
-}
+    export const postTask = async (task) => {
+        const response = await api.post('/task/create', task);
+        console.warn(response);
+    };
+
+    export const updateTask = async (id, task) => {
+        const response = await api.put("/task/update/" + id, task);
+        console.warn(response);
+    };
+
+    export const deleteTask = async (id) => {
+        const response = await api.delete("/tasks/" + id);
+        console.warn(response);
+    };

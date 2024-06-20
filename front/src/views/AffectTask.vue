@@ -39,7 +39,7 @@
         <div class="form-group">
           <label for="employe">Employé</label>
           <select class="form-select" v-model="task.employee" required>
-            <option v-for="e in employees" :key="e.id" :values="e.id">{{ e.id }}</option>
+            <option v-for="e in employees" :key="e.id" v-bind:value="e.id">{{ e.name }}</option>
           </select>
         </div>
         <div class="form-group">
@@ -103,17 +103,26 @@ export default {
     
 
     async updateTask(task){
-      console.log("Temps de travaille : "+this.calclulHours(task))
-      //Modification des données de la tâche
-      const response = await axios.put("https://127.0.0.1:8000/api/task/update/"+task.id,task);
-      //Affiche le status de la requête
-      console.warn(response)
-      //Retourne false si le bouton "Modifier" est cliqué
-      this.visibleForm = false
-      //Liste des tâches
-      this.getTasks()
-      //Affiche un message de confirmation
-      alert('La tâche a été modifié.');
+          if(this.task.employee && this.task.libelle){
+            if (this.calclulHours(task)) {
+                //Si l'employé existe
+                  //Modification des données de la tâche
+                  const response = await axios.put("https://127.0.0.1:8000/api/task/update/"+task.id,task);
+                  //Affiche le status de la requête
+                  console.warn(response)
+                  //Retourne false si le bouton "Modifier" est cliqué
+                  this.visibleForm = false
+                  //Liste des tâches
+                  this.getTasks()
+                  //Affiche un message 
+                  alert('La tâche a été modifié.');
+            }else{
+                  alert('L\'employé ne peut pas traiter plus d\'une tâche à la fois et ne peut pas travailler plus de 8 heures.');
+            }
+        }else{
+            //Affiche un message 
+            alert('Champs incomplet');
+          }
 
     },
 
@@ -123,16 +132,41 @@ export default {
       return url_api ? parseInt(url_api.split('/').pop()) : null;
     },
 
-     calclulHours(task){
 
-      //Convertir les heures en objet date
-      let heureD = new Date(task.heureDebut);
-      let heureF = new Date(task.heureFin);
+    calclulHours(newTask) {
 
-      //Calcule l'heure : heureDépart - heureFin
-      let hours = heureD - heureF
+        //Affiche l'id de l'employer 
+        console.log( "New Task : "+newTask.employee)
+        //
+        const convertToMinutes = time => time.split(':').reduce((h, m) => h * 60 + +m);
+        //Converti heureDebut et heureFin en minutes
+        const [newStart, newEnd] = [convertToMinutes(newTask.heureDebut), convertToMinutes(newTask.heureFin)];
+        //Si les minutes de fin sont inferieurs aux minutes de début, retourne false
+        if (newEnd <= newStart) return false;  
+        //Calcul la durée
+        const durationTask = newEnd - newStart;
+        //Affiche la durée dans la console
+        console.log("Durée : "+durationTask)
+        //Total de minutes
+        let totalMinutes = 0;
 
-      return hours;
+        //Liste des tâches 
+        for (let task of this.tasks) {
+          //Si l'id de l'employé existe 
+          if (this.extractId(task.employee) === newTask.employee) {
+              
+              //Converti les heures en objet Date
+              const debut = new Date(task.heureDebut)
+              const fin = new Date(task.heureFin)
+              //Calcul la duréé
+              const duration = (fin - debut) / 60000
+              totalMinutes += duration;
+
+            }
+        }
+        console.log("total : "+totalMinutes)
+
+        return durationTask + totalMinutes <= 480;        
     },
 
     showForm(task){

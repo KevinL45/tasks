@@ -10,23 +10,9 @@ const api = axios.create({
     'Content-Type': 'application/json'
   }
 });
-export default{
 
-    //Affiche toutes les tâches
-    getEmployee(){
-        return api.get('/employees')
-    },
-    //Saisir la tâche
-    postEmployee(employee){
-        return api.post('/employees', employee)
-    },
-    //Modifier la tâche
-    updateEmployee(id, employee){
-        return api.put('/employees/'+id, employee)
-    },
-    //Supprimer une tache
-    deleteEmployee(id){
-        return api.delete('/employees/'+id)
-    }
-}
+export const getEmployees = async () => {
+    const response = await api.get('/employees');
+    return response.data["hydra:member"];
+};
 
